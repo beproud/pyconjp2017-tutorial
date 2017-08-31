@@ -291,9 +291,9 @@ WIP
 演習
 ====
 
-- `健康診断のお知らせ作成プログラムを作成 </quests/notification_exercise/try/>`_
-- `水ボトルの注文数を決定しよう </quests/water_exercise/try/>`_
-- `当番の一覧表示プログラム </quests/duty_exercise/try/>`_
+- `健康診断のお知らせ作成プログラムを作成 <https://pyq.jp/quests/notification_exercise/try/>`_
+- `水ボトルの注文数を決定しよう <https://pyq.jp/quests/water_exercise/try/>`_
+- `当番の一覧表示プログラム <https://pyq.jp/quests/duty_exercise/try/>`_
 
 リンク
 =============================
