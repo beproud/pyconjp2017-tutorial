@@ -141,7 +141,7 @@ if ~ else文
 
 .. code-block :: python
 
-  if age > 20:
+  if age >= 20:
       print("大人ですね")
   else:
       print("子供ですね")
