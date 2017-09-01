@@ -1,0 +1,136 @@
+==================================================
+3部: WEBサイトの情報をPythonを使って抽出してみよう
+==================================================
+
+準備
+====
+
+スクリプトを作成する前に、必要なファイルを自分の手元にコピーしましょう。
+
+必要なファイルは、 ``codes/3-2/`` ディレクトリに収められています。
+これを自分が実際に作業できるディレクトリへコピーしてください。
+
+以後の作業は、このコピー先のディレクトリ内で行います。
+
+また、今回は以下のWEBサイトのページに対してスクレイピングを行いますので確認してみしょう。
+
+- <http://docs.pyq.jp/_static/assets/pyq-cats/articles.html>
+
+
+WEBサイトのHTMLを表示してみよう
+===============================
+
+Requestsを使ってURLに対してリクエストを送り、WEBサイトのHTMLを取得しましょう。
+
+RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュールの ``get()`` 関数を用います。
+
+また、 ``get()`` 関数が返すResponseオブジェクトの ``status_code`` 属性から、HTTPステータスコードが取得できます。
+``text`` 属性からはテキスト形式でHTTPレスポンスが取得できます。
+
+
+.. code-block:: python
+
+  # show_articles_html.py
+
+  import requests
+
+  response = requests.get('http://docs.pyq.jp/_static/assets/pyq-cats/articles.html')
+	response.encoding = response.apparent_encoding
+  # 取得したスタータスコードを出力します
+  print(response.status_code)
+	# 取得したHTMLを表示します
+  print(response.text)
+
+::
+
+   Requestsの注意点
+   Requests で日本語などのマルチバイト文字を含むようなHTMLを取得する場合、コンテンツの文字エンコーディングを適切に判別できずに、文字化けしてしまうことがあります。下記の一行を書くことで、文字エンコーディングを適切に設定してくれます。日本語を含むようなコンテンツを取得する時は毎回この処理を追加すると良いでしょう。
+
+   response = requests.get(url)
+   # HTTPレスポンスに適切な文字エンコーディングを設定する
+   response.encoding = response.apparent_encoding
+
+   encoding プロパティは、サーバーから返されるレスポンスの文字エンコーディングです。この文字エンコーディングにしたがって、コンテンツを変換してくれます。
+   apparent_encoding はサーバーから返される 文字エンコーディング が不明な場合にコンテンツの中身をチェックした上で適切な 文字エンコーディングを教えてくれます。これを respones.encoding にセットすることで、極力文字化けなどが起こらないようにコンテンツを取得できます。
+
+.. note::
+
+  ここでの「オブジェクト」は、
+  コンピューター上に存在する「データ」と「データの使い方」をまとめた「モノ」と考えてください。
+
+  例えば、 ``Response`` オブジェクトは、HTTPステータスコードやHTTPレスポンスボディといったHTTPレスポンスの「データ」や、
+  「データ」であるHTTPレスポンスのデータをJSON形式で返す ``json()`` といった「データの使い方」がまとまっています。
+
+.. note::
+
+  HTTPレスポンスとは?:クライアントからのHTTPリクエストに対して、Webサーバーがリクエストを受け取った結果をクライアントへ送信する応答のことです。
+
+.. note::
+
+  HTTPレスポンスボディとは?:HTMLで記述されたWebページの情報や、CSSや画像ファイル等の情報が含まれているデータです。
+
+.. note::
+
+  HTTPステータスコードとは?:HTTPにおいてWebサーバからのレスポンスの意味を表現する3桁の数字からなるコードでです。
+  <`https://developer.mozilla.org/ja/docs/Web/HTTP/Status`>
+
+.. note::
+
+  JSONとは?:JSONとはJavaScript Object Notationの略で、テキストベースのデータフォーマットです。簡潔に構造化されたデータを簡単に記述することができるため、人間が理解しやすいデータフォーマットとして扱われています
+
+
+`codes/3-2` ディレクトリ内に、 show_articles_html.py という名前で上記のファイルを作成してください。
+
+すると下記のようなディレクトリ構成になります。
+
+::
+
+   ./
+   └ show_articles_html.py
+
+では、このスクリプトを実行してみましょう。
+
+::
+
+   $ python show_articles_html.py
+   200
+   <!DOCTYPE html>
+   <html>
+     <head>
+       <meta charset="utf-8">
+       <title>PyQ Cats</title>
+       <link rel="stylesheet" href="css/reset.css">
+       <link rel="stylesheet" href="css/style.css">
+     </head>
+     <body>
+       <div id="container">
+         <header class="header">
+           <h1 class="title"><a href="http://docs.pyq.jp/_static/assets/pyq-cats/articles.html">PyQ Cats</a></h1>
+           <p class="about">我が家のネコ画像を紹介するブログです</p>
+         </header>
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ### 省略 ###
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         <footer class="footer">
+           <span class="description">※このサイトはダミーです</span>
+         </footer>
+       </div>
+     </body>
+   </html>
+
+
+記事のURLを一覧で取得してみよう
+===============================
+
+WEBサイトのHTMLを表示する事ができたので、記事の一覧を取得してみましょう
+
+小休止
+========
+
+これでReqestsとBeautifulSoupを使ったWEBスクレイピングの第一歩は終了です。
+以下のような便利なプログラムを作ってみましょう。
+
+* WEBサイトからネコ画像をダウンロード
+
+WEBサイトからネコ画像をダウンロード
+===================================
