@@ -9,7 +9,7 @@
 
 以後の作業は、この作業ディレクトリ内で行います。
 
-また、今回は以下のWEBサイトのページに対してスクレイピングを行いますので確認してみしょう。
+また、今回は以下のWEBサイトのページに対してスクレイピングを行いますので確認してみましょう。
 
 * http://docs.pyq.jp/_static/assets/pyq-cats/articles.html
 
@@ -22,7 +22,7 @@ Requestsを使ってURLに対してリクエストを送り、WEBサイトのHTM
 RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュールの ``get()`` 関数を用います。
 
 また、 ``get()`` 関数が返すResponseオブジェクトの ``status_code`` 属性から、HTTPステータスコードが取得できます。
-``text`` 属性からはテキスト形式でHTTPレスポンスが取得できます。
+``text`` 属性からはテキスト形式でHTMLが取得できます。
 
 
 .. code-block:: python
@@ -31,10 +31,11 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
 
   import requests
 
-  # 取得したいCSVのURLを書きます
+  # リクエストを送るURLを書きます
   url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
 
   response = requests.get(url)
+  # HTTPレスポンスに適切な文字エンコーディングを設定します
   response.encoding = response.apparent_encoding
   # 取得したスタータスコードを表示します
   print(response.status_code)
@@ -66,70 +67,18 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
        <link rel="stylesheet" href="css/style.css">
      </head>
      <body>
-       <div id="container">
-         <header class="header">
-           <h1 class="title"><a href="http://docs.pyq.jp/_static/assets/pyq-cats/articles.html">PyQ Cats</a></h1>
-           <p class="about">我が家のネコ画像を紹介するブログです</p>
-         </header>
-         <div class="wrapper clearfix">
-           <div class="main">
-             <ul>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170825.html">2017年8月25日　どこにいった？</a>
-                 </h2>
-               </li>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170715.html">2017年7月15日　ぐでーん</a>
-                 </h2>
-               </li>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170624.html">2017年6月24日　ハンモック</a>
-                 </h2>
-               </li>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170623.html">2017年6月23日　かまって欲しい</a>
-                 </h2>
-               </li>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170617.html">2017年6月17日　カーテンの向こうから</a>
-                 </h2>
-               </li>
-               <li>
-                 <h2 class="article-title">
-                   <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170611.html">2017年6月11日　肉球パン</a>
-                 </h2>
-               </li>
-             </ul>
-             <div class="paging">
-               <span class="page-next"><a href="http://docs.pyq.jp/_static/assets/pyq-cats/articles2.html">次のページ &gt;</a></span>
-             </div>
-           </div>
-           <div class="sidemenu">
-             <h3 class="side-title">投稿者</h3>
-             <div class="profile">
-               <img class="profile-img" src="http://docs.pyq.jp/_static/assets/pyq-cats/img/profile.png" alt="ねこぞう">
-               <p>ねこぞう</p>
-             </div>
-           </div>
-         </div>
-         <footer class="footer">
-           <span class="description">※このサイトはダミーです</span>
-         </footer>
-       </div>
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ## 省略 ##
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      </body>
    </html>
 
 スクリプトを実行すると上記のようにHTTPステータスコードと指定したURLのHTMLが出力されます。
 
-.. note::
 
-   Requestsの注意点
-   Requests で日本語などのマルチバイト文字を含むようなHTMLを取得する場合、コンテンツの文字エンコーディングを適切に判別できずに、文字化けしてしまうことがあります。下記の一行を書くことで、文字エンコーディングを適切に設定してくれます。日本語を含むようなコンテンツを取得する時は毎回この処理を追加すると良いでしょう。
+* Requestsの注意点
+
+  * Requests で日本語などのマルチバイト文字を含むようなHTMLを取得する場合、コンテンツの文字エンコーディングを適切に判別できずに、文字化けしてしまうことがあります。下記の一行を書くことで、文字エンコーディングを適切に設定してくれます。日本語を含むようなコンテンツを取得する時は毎回この処理を追加すると良いでしょう。
 
    ::
 
@@ -137,8 +86,13 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
       # HTTPレスポンスに適切な文字エンコーディングを設定する
       response.encoding = response.apparent_encoding
 
-   encoding プロパティは、サーバーから返されるレスポンスの文字エンコーディングです。この文字エンコーディングにしたがって、コンテンツを変換してくれます。
-   apparent_encoding はサーバーから返される 文字エンコーディング が不明な場合にコンテンツの中身をチェックした上で適切な 文字エンコーディングを教えてくれます。これを respones.encoding にセットすることで、極力文字化けなどが起こらないようにコンテンツを取得できます。
+  * `encoding` 属性は、サーバーから返されるレスポンスの文字エンコーディングです。この文字エンコーディングにしたがって、コンテンツを変換してくれます。
+  * `apparent_encoding` 属性はサーバーから返される 文字エンコーディング が不明な場合にコンテンツの中身をチェックした上で適切な文字エンコーディングを教えてくれます。これを `respones.encoding` にセットすることで、極力文字化けなどが起こらないようにコンテンツを取得できます。
+
+
+WEB上のコンテンツをプログラムで扱う時はHTMLやHTTPなどのWEBの技術について知っておくと良いでしょう。
+
+WEBの技術に関しては、 PyQのドキュメント `WEBの技術ついて <http://docs.pyq.jp/column/web.html>`_ を参照してください。
 
 .. note::
 
@@ -147,20 +101,6 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
 
   例えば、 ``Response`` オブジェクトは、HTTPステータスコードやHTTPレスポンスボディといったHTTPレスポンスの「データ」や、
   「データ」であるHTTPレスポンスのデータをJSON形式で返す ``json()`` といった「データの使い方」がまとまっています。
-
-.. note::
-
-  HTTPレスポンスとは?:クライアントからのHTTPリクエストに対して、Webサーバーがリクエストを受け取った結果をクライアントへ送信する応答のことです。
-
-.. note::
-
-  HTTPレスポンスボディとは?:HTMLで記述されたWebページの情報や、CSSや画像ファイル等の情報が含まれているデータです。
-
-.. note::
-
-  HTTPステータスコードとは?:HTTPにおいてWebサーバからのレスポンスの意味を表現する3桁の数字からなるコードでです。
-
-  参考: `https://developer.mozilla.org/ja/docs/Web/HTTP/Status`
 
 .. note::
 
@@ -183,7 +123,7 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
    import requests
    from bs4 import BeautifulSoup
 
-   # 取得したいCSVのURLを書きます
+   # リクエストを送るURLを書きます
    url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
 
    response = requests.get(url)
@@ -191,7 +131,7 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
    # Requestsで取得したHTMLをBeautifulSoupで扱う
    soup = BeautifulSoup(response.text, 'html.parser')
    # HTML内のaタグの要素を全て取得します
-   urls = soup.find_all('a')
+   links = soup.find_all('a')
    for link in links:
        print(link)
 
@@ -230,7 +170,7 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
    import requests
    from bs4 import BeautifulSoup
 
-   # 取得したいCSVのURLを書きます
+   # リクエストを送るURLを書きます
    url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
 
    response = requests.get(url)
@@ -247,7 +187,16 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
 
 今度は `h2` タグ とCSSのclass属性 `article-title` を指定してHTMLの記事の要素を取得する様に修正を行い、要素から記事のタイトル名とリンクのURLのみを出力するようにしてみました。
 
+`articles = soup.find_all('h2', class_='article-title')` というコードは show_articles_html.py で出力したHTMLの要素から以下の記事タイトルの要素のみを取得しています。
+
+::
+
+   <h2 class="article-title">  ← この部分をコードで指定しています。
+     <a href="http://docs.pyq.jp/_static/assets/pyq-cats/20170825.html">2017年8月25日　どこにいった？</a>
+   </h2>
+
 見つかった要素の属性は、 `attrs`  属性によって参照できます。 上記の例では、HTML内の `a` タグを見つけ、href の内容を表示しています。
+
 
 それでは修正したスクリプトを実行してみましょう。
 
@@ -350,9 +299,9 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 ヒント
 ------
 
-* URLの解析には `urllib.parse` モジュールの `urlparse()` を使います。
-* ディレクトリの存在確認には `os.path` モジュールの `exists()` を使います
-* ディレクトリの作成には `os` モジュールの `makedirs()` を使います。
+* URLの解析には `urllib.parse` モジュールの `urlparse() <https://docs.python.jp/3/library/urllib.parse.html#urllib.parse.urlparse>`_ を使います。
+* ディレクトリの存在確認には `os.path` モジュールの `exists() <https://docs.python.jp/3/library/os.path.html?highlight=os%20path#os.path.exists>`_ を使います
+* ディレクトリの作成には `os` モジュールの `makedirs() <https://docs.python.jp/3/library/os.html?highlight=makedir#os.makedirs>`_ を使います。
 * 画像のダウンロードには `open(ファイル名, "wb")` でファイルオブジェクトを取得し、 `write()` で保存します。
 * 記事によっては画像が複数あります。画像がいくつあっても画像URLを取得できようセレクタを考えましょう。
 
