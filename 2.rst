@@ -137,7 +137,7 @@ Pillowは画像処理を行うライブラリで、画像の縮小や切り取�
 
   作例 1
 
-.. figure:: ../image/rotate.png
+.. figure:: https://raw.githubusercontent.com/beproud/pyconjp2017-tutorial/master/images/rotate.png
 
   作例 2
 
