@@ -11,7 +11,7 @@
 
 また、今回は以下のWEBサイトのページに対してスクレイピングを行いますので確認してみしょう。
 
-- <http://docs.pyq.jp/_static/assets/pyq-cats/articles.html>
+* http://docs.pyq.jp/_static/assets/pyq-cats/articles.html
 
 
 WEBサイトのHTMLを表示してみよう
@@ -31,49 +31,15 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
 
   import requests
 
-  response = requests.get('http://docs.pyq.jp/_static/assets/pyq-cats/articles.html')
+  # 取得したいCSVのURLを書きます
+  url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
+
+  response = requests.get(url)
   response.encoding = response.apparent_encoding
   # 取得したスタータスコードを表示します
   print(response.status_code)
   # 取得したHTMLを表示します
   print(response.text)
-
-::
-
-   Requestsの注意点
-   Requests で日本語などのマルチバイト文字を含むようなHTMLを取得する場合、コンテンツの文字エンコーディングを適切に判別できずに、文字化けしてしまうことがあります。下記の一行を書くことで、文字エンコーディングを適切に設定してくれます。日本語を含むようなコンテンツを取得する時は毎回この処理を追加すると良いでしょう。
-
-   response = requests.get(url)
-   # HTTPレスポンスに適切な文字エンコーディングを設定する
-   response.encoding = response.apparent_encoding
-
-   encoding プロパティは、サーバーから返されるレスポンスの文字エンコーディングです。この文字エンコーディングにしたがって、コンテンツを変換してくれます。
-   apparent_encoding はサーバーから返される 文字エンコーディング が不明な場合にコンテンツの中身をチェックした上で適切な 文字エンコーディングを教えてくれます。これを respones.encoding にセットすることで、極力文字化けなどが起こらないようにコンテンツを取得できます。
-
-.. note::
-
-  ここでの「オブジェクト」は、
-  コンピューター上に存在する「データ」と「データの使い方」をまとめた「モノ」と考えてください。
-
-  例えば、 ``Response`` オブジェクトは、HTTPステータスコードやHTTPレスポンスボディといったHTTPレスポンスの「データ」や、
-  「データ」であるHTTPレスポンスのデータをJSON形式で返す ``json()`` といった「データの使い方」がまとまっています。
-
-.. note::
-
-  HTTPレスポンスとは?:クライアントからのHTTPリクエストに対して、Webサーバーがリクエストを受け取った結果をクライアントへ送信する応答のことです。
-
-.. note::
-
-  HTTPレスポンスボディとは?:HTMLで記述されたWebページの情報や、CSSや画像ファイル等の情報が含まれているデータです。
-
-.. note::
-
-  HTTPステータスコードとは?:HTTPにおいてWebサーバからのレスポンスの意味を表現する3桁の数字からなるコードでです。
-  <`https://developer.mozilla.org/ja/docs/Web/HTTP/Status`>
-
-.. note::
-
-  JSONとは?:JSONとはJavaScript Object Notationの略で、テキストベースのデータフォーマットです。簡潔に構造化されたデータを簡単に記述することができるため、人間が理解しやすいデータフォーマットとして扱われています
 
 
 `codes` ディレクトリ内に、 show_articles_html.py という名前で上記のファイルを作成してください。
@@ -158,11 +124,57 @@ RequestsでWEBサイトの情報を取得するには、 ``requests`` モジュ�
      </body>
    </html>
 
+スクリプトを実行すると上記のようにHTTPステータスコードと指定したURLのHTMLが出力されます。
+
+.. note::
+
+   Requestsの注意点
+   Requests で日本語などのマルチバイト文字を含むようなHTMLを取得する場合、コンテンツの文字エンコーディングを適切に判別できずに、文字化けしてしまうことがあります。下記の一行を書くことで、文字エンコーディングを適切に設定してくれます。日本語を含むようなコンテンツを取得する時は毎回この処理を追加すると良いでしょう。
+
+   ::
+
+      response = requests.get(url)
+      # HTTPレスポンスに適切な文字エンコーディングを設定する
+      response.encoding = response.apparent_encoding
+
+   encoding プロパティは、サーバーから返されるレスポンスの文字エンコーディングです。この文字エンコーディングにしたがって、コンテンツを変換してくれます。
+   apparent_encoding はサーバーから返される 文字エンコーディング が不明な場合にコンテンツの中身をチェックした上で適切な 文字エンコーディングを教えてくれます。これを respones.encoding にセットすることで、極力文字化けなどが起こらないようにコンテンツを取得できます。
+
+.. note::
+
+  ここでの「オブジェクト」は、
+  コンピューター上に存在する「データ」と「データの使い方」をまとめた「モノ」と考えてください。
+
+  例えば、 ``Response`` オブジェクトは、HTTPステータスコードやHTTPレスポンスボディといったHTTPレスポンスの「データ」や、
+  「データ」であるHTTPレスポンスのデータをJSON形式で返す ``json()`` といった「データの使い方」がまとまっています。
+
+.. note::
+
+  HTTPレスポンスとは?:クライアントからのHTTPリクエストに対して、Webサーバーがリクエストを受け取った結果をクライアントへ送信する応答のことです。
+
+.. note::
+
+  HTTPレスポンスボディとは?:HTMLで記述されたWebページの情報や、CSSや画像ファイル等の情報が含まれているデータです。
+
+.. note::
+
+  HTTPステータスコードとは?:HTTPにおいてWebサーバからのレスポンスの意味を表現する3桁の数字からなるコードでです。
+
+  参考: `https://developer.mozilla.org/ja/docs/Web/HTTP/Status`
+
+.. note::
+
+  JSONとは?:JSONとはJavaScript Object Notationの略で、テキストベースのデータフォーマットです。簡潔に構造化されたデータを簡単に記述することができるため、人間が理解しやすいデータフォーマットとして扱われています
+
 
 記事のURLを一覧で取得してみよう
 ===============================
 
-WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの中から記事のURL一覧を取得してみましょう
+WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの中から記事のタイトルとURL一覧を取得してみましょう
+
+Requestsを使う事によってHTMLを取得できたので、今度はBeautifulSoupも使いHTMLの要素から取得したい要素を抽出します。
+
+`show_article_urls1.py` という名前で以下のファイルを作成してください。
 
 .. code-block:: python
 
@@ -171,21 +183,22 @@ WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの
    import requests
    from bs4 import BeautifulSoup
 
-   response = requests.get('http://docs.pyq.jp/_static/assets/pyq-cats/articles.html')
+   # 取得したいCSVのURLを書きます
+   url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
+
+   response = requests.get(url)
    response.encoding = response.apparent_encoding
-   # HTMLをBeautifulSoupで扱う
+   # Requestsで取得したHTMLをBeautifulSoupで扱う
    soup = BeautifulSoup(response.text, 'html.parser')
    # HTML内のaタグの要素を全て取得します
    urls = soup.find_all('a')
-   # URL一覧を表示します
    for url in urls:
        print(url)
 
 
-`find_all()` 関数の第1引数のname引数を指定するとタグを制限する事ができます。
+`find_all()` 関数の第1引数のname引数を指定すると取得するタグを制限する事ができます。
 
-今回は `a` タグを指定することでリンク一覧のリストを取得してfor文で要素が1つずつ表示されるようにました。
-
+今回は `a` タグを指定しました。
 
 では、このスクリプトを実行してみましょう。
 
@@ -203,7 +216,9 @@ WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの
 
 おや、これだと記事以外のURLが混ざっていたり、HTMLまで表示されていてわかりにくいですね。
 
-`{記事名}:{URL}` と表示されるように修正を行いましょう。
+`{記事のタイトル名}:{URL}` と表示されるように修正を行いましょう。
+
+`show_article_urls2.py` という名前で以下のファイルを作成してください。
 
 
 .. code-block:: python
@@ -213,15 +228,22 @@ WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの
    import requests
    from bs4 import BeautifulSoup
 
-   response = requests.get('http://docs.pyq.jp/_static/assets/pyq-cats/articles.html')
+   # 取得したいCSVのURLを書きます
+   url = 'http://docs.pyq.jp/_static/assets/pyq-cats/articles.html'
+
+   response = requests.get(url)
    response.encoding = response.apparent_encoding
    soup = BeautifulSoup(response.text, 'html.parser')
-   # HTMLのh2とclass属性を指定して記事の要素のみを取得します
-   urls = soup.find_all('h2', class_='article-title')
+   # HTMLのh2とCSSのclass属性を指定して記事の要素のみを取得します
+   articles = soup.find_all('h2', class_='article-title')
    # 記事のタイトル名とURLを表示します
-   for url in urls:
-       print('{}:{}'.format(url.text.strip(), url.a.attrs.get('href').strip()))
+   for article in articles:
+       title = article.text.strip()
+       link = article.a.attrs.get('href').strip()
+       print('{}:{}'.format(title, link)
 
+
+今度は `h2` タグ と `article-title` 属性を指定してHTMLの記事の要素を取得する様に修正を行い、要素から記事のタイトル名とリンクのURLのみを出力するようにしてみました。
 
 それでは修正したスクリプトを実行してみましょう。
 
@@ -235,7 +257,22 @@ WEBサイトのHTMLを表示する事ができたので、今度はこのHTMLの
    2017年6月17日　カーテンの向こうから:http://docs.pyq.jp/_static/assets/pyq-cats/20170617.html
    2017年6月11日　肉球パン:http://docs.pyq.jp/_static/assets/pyq-cats/20170611.html
 
-これで `{記事名}:{URL}` という期待する結果で表示する事ができました。
+無事 `{記事のタイトル名}:{URL}` という期待する結果で表示する事ができました！
+
+::
+
+   find_all()関数の class キーワードは Python の予約語のため、class 属性値を検索するには、class_ というキーワードを使用することに注意してください。
+
+.. note::
+
+  予約後とは?: プログラミング言語において字句的には識別子（変数名、関数名など）としてのルールを満たしているにもかかわらず、識別子として使えない字句要素です。
+
+  Pythonでは以下のコードで予約後の一覧を確認する事ができます。
+
+  ::
+
+     print(__import__('keyword').kwlist)
+
 
 小休止
 ========
@@ -258,6 +295,24 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 * http://docs.pyq.jp/_static/assets/pyq-cats/articles.html
 
 記事一覧から各記事を辿って、記事内のネコ画像をダウンロードするプログラムを作成してみましょう。
+
+.. warning::
+
+   連続して同じサイトにアクセスする時はアクセスする間隔を最低1秒以上は空けましょう。
+
+   アクセスする間隔を空けるのは対象となるサイトに迷惑をかけないためです。
+
+   今回の課題のコードでは以下の様に標準モジュールのtime.sleepを利用して1秒間隔を空けましょう。
+
+   ::
+
+      import time
+
+      # 1秒プログラムを停止します。引数は停止させる秒数です
+      time.sleep(1)
+
+   自分のPCでスクレピングを試す時はスクレイピング、クローリングする時の注意点 をよく読んでから試すようにしましょう。
+
 
 要件
 ----
