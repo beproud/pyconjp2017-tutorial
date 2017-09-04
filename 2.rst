@@ -133,7 +133,7 @@ pipがインストールできたので、第3部にて使用するライブラ�
 Pillowは画像処理を行うライブラリで、画像の縮小や切り取りをはじめ、
 様々な画像編集を行うことができます。
 
-.. figure:: ../image/recursive.png
+.. figure:: https://raw.githubusercontent.com/beproud/pyconjp2017-tutorial/master/images/recursive.png
 
   作例 1
 
