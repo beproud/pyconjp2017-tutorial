@@ -334,6 +334,10 @@ for 文は繰り返しコードを実行する文です
 
 - 関数は上の ``len()`` 関数のように、引数で与える値と、返り値があらかじめ決まっています。 ``len()`` 以外にも便利な関数は数多くありますが、プログラミングを上達していく上では、関数の引数・返り値を一つ一つ学んでいくということが必要になります。
 
+引数
+=========
+
+オプション引数
 
 モジュール
 =============================
@@ -408,7 +412,7 @@ open
 
 - ファイルを読み書きする際「どこのファイル」にアクセスするかの場所を表す文字列を「パス」といいます
 - パスは、ディレクトリ(フォルダ)を ``/`` (windowsでは ``¥`` ) で区切った形で表されます
-- パスの具体例: ``/Users/furi/Desktop/neko.png``
+- パスの具体例: ``/Users/furi/Desktop/neko.png`` (windowsでは ``C:¥Users¥furi¥Desktop/neko.png`` )
 - 上の具体例の用に、絶対パスと言います。
 - 相対パスは、現在の(スクリプトを実行する)ディレクトリを基準として、そこからの相対的なパスを記述したものです
 
@@ -429,10 +433,47 @@ open
         - "/Users/furi/codes/images/neko.png"
         -
 
-演習
-====
+osモジュール
+--------------
+
+python の ``os`` モジュールには、ファイル・パスといったosに依存した関数がまとまっています
+
+次のプログラムは、osが提供している関数を使って、ファイルの一覧を作成するプログラムです。
+
+.. code-block :: python
+
+  import os
+
+  target_path = "./"
+  for filename in os.listdir(target_path):
+      file_path = os.path.join(target_path, filename)
+
+      if os.path.isfile(file_path):
+          print(filename)
+
+
+- コードの解説
+
+  - ``os.listdir(dir_path)`` は引数で与えられたディレクトリのパス内のすべてのファイル・ディレクトリをリストで返します
+  - ``os.path.join(dir_path, filename)`` は ``dir_path`` と ``filename`` を結合して、filenameのパスを返します
+
+    - filename には相対パスを記述することはできません。
+    - コラム: なぜこの関数を使うか
+
+      - 単純に文字列で ``"/Users/furi/" + "cat.png" `` と結合することはできますが、以下のメリットがあります
+      - メリット1: windows/linuxでパスの区切り文字が違うが、os.path.joinを使うことで違いを意識しないでプログラムがかける
+      - メリット2: dir_path の末尾に "/" がついていてもいなくてもプログラムがよしなにパスを返してくれる
+
+  - ``os.path.isfile(path)`` は、与えらたパスがファイルかどうかを判定して、真偽値を返します
+
+    - path がディレクトリの場合 ``False`` を返します
+
+
+1部後半の演習
+===============
 
 - `出退勤時刻をファイルに出力するプログラム <https://pyq.jp/quests/log_exercise/try/#>`_
+- `ディレクトリー内の特定のファイルを探すプログラムを作成しよう <http://beproud.gold10.owo3.net/quests/module_os_exercise/try/#>`_
 
 リファレンス
 =================
