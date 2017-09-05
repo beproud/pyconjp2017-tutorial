@@ -40,7 +40,7 @@ Pythonとは
 操作
 -----
 
-1. https://pyq.jp/login にアクセス
+1. https://pyconjp2017.pyq.jp/login/ にアクセス
 2. 配布したアカウントでログイン
 
    - TODO: ここに書くのもあれなので印刷して配布とかでいい？
