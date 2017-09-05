@@ -109,7 +109,7 @@ pipのバージョン確認
 この出力はそれぞれ次のような意味です。
 
 - ``pip 9.0.1`` pip のバージョン
-- ``from /usr/local/lib/python3.4/dist-packages`` pipでインストールされたパッケージが配置されるディレクトリ
+- ``from /usr/local/lib/python3.5/dist-packages`` pipでインストールされたパッケージが配置されるディレクトリ
 - ``(python 3.5)`` pip が動いてるPythonのバージョン
 
 この出力から以下のことが確認できれば、無事にpipがインストールできています
