@@ -5,6 +5,12 @@
 準備
 ====
 
+* この課題でつかうファイルはGitHubで管理されているので手元に持ってきてください。テキストや課題は全て含まれています。
+
+  * `ZIPファイル <https://github.com/beproud/pyconjp2017-tutorial/archive/master.zip>`_ をダウンロードしてください
+  * Gitがインストールできている人は ``git clone https://github.com/beproud/pyconjp2017-tutorial.git`` してください。
+
+
 スクリプトを作成する前に、必要なファイルを自分の手元にコピーしましょう。
 
 第3部で必要なファイルは、 ``codes/3/`` ディレクトリに収められています。
