@@ -300,7 +300,7 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 ------
 
 * URLの解析には `urllib.parse` モジュールの `urlparse() <https://docs.python.jp/3/library/urllib.parse.html#urllib.parse.urlparse>`_ を使います。
-* ディレクトリの存在確認には `os.path` モジュールの `exists() <https://docs.python.jp/3/library/os.path.html?highlight=os%20path#os.path.exists>`_ を使います
+* ディレクトリの存在確認には `os.path` モジュールの `exists() <https://docs.python.jp/3/library/os.path.html?highlight=os%20path#os.path.exists>`_ を使います。
 * ディレクトリの作成には `os` モジュールの `makedirs() <https://docs.python.jp/3/library/os.html?highlight=makedir#os.makedirs>`_ を使います。
 * 画像のダウンロードには `open(ファイル名, "wb")` でファイルオブジェクトを取得し、 `write()` で保存します。
 * 記事によっては画像が複数あります。画像がいくつあっても画像URLを取得できるようにセレクタを考えましょう。
