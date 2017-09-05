@@ -43,7 +43,7 @@ def get_image_urls(url):
     images = soup.find_all('img', class_='article-img')
     urls = []
     for image in images:
-        urls.append(image)
+        urls.append(image['src'])
     return urls
 
 

@@ -317,6 +317,15 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 2 TOPページだけでなく、２ページ以降のネコ画像もダウンロードするようにしてみましょう。
 
 回答
-------
+----
 
 課題の回答コードは、 ``codes/3-2/`` ディレクトリに収められています。
+
+- 本課題の回答コード例
+   - `codes/3-2/download_pyq_cats_1.py <codes/3-2/download_pyq_cats_1.py>`_
+- 本課題の回答コード例(関数定義バージョン)
+   - `codes/3-2/download_pyq_cats_2.py <codes/3-2/download_pyq_cats_2.py>`_
+- 発展課題1の回答コード例
+   - `codes/3-2/download_pyq_cats_3.py <codes/3-2/download_pyq_cats_3.py>`_
+- 発展課題2の回答コード例
+   - `codes/3-2/download_pyq_cats_4.py <codes/3-2/download_pyq_cats_4.py>`_
