@@ -46,11 +46,6 @@ PyCon JP 2017 チュートリアル
   * 不明点はお近くの講師に気兼ねなくお尋ねください。
   * 質疑応答の時間も設けます。
 
-* 当チュートリアルで使うファイルはGitHubで管理されているので手元に持ってきてください。テキストや課題は全て含まれています。
-
-  * Gitがインストールできている人は ``git clone https://github.com/beproud/pyconjp2017-tutorial.git`` してください。
-  * Gitがインストールできていない人は `ZIPファイル <https://github.com/beproud/pyconjp2017-tutorial/archive/master.zip>`_ をダウンロードしてください。
-
 * 当チュートリアルでは演習に `PyQ <https://pyq.jp>`_ というオンラインサービスを利用します。
 
   * `PyQ <https://pyq.jp>`_ は `BeProud <beproud.jp>`_ が開発したPython学習用のプラットフォームです。
