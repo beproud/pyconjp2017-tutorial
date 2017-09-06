@@ -1,5 +1,5 @@
 """
-PyQ Cats からネコ画像をダウンロードするプログラム(発展課題1の回答)
+PyQ Cats からネコ画像をダウンロードするプログラム(発展課題1の回答例)
 """
 import os
 from time import sleep
@@ -14,7 +14,7 @@ TOP_URL = "http://docs.pyq.jp/_static/assets/pyq-cats/articles.html"
 DOWNLOAD_DIR = "images"
 
 
-def get_article_urls(url):
+def get_article_info(url):
     """
     記事一覧ページから記事URLを取得
 
@@ -34,7 +34,7 @@ def get_article_urls(url):
     return article_info
 
 
-def get_image_urls(url):
+def get_image_info(url):
     """
     記事ページから画像URLを取得
 
@@ -44,11 +44,8 @@ def get_image_urls(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     images = soup.find_all('img', class_='article-img')
-    image_infos = []
-    for image in images:
-        # 画像のalt属性と画像URLの要素でタプルを作成してリストに入れます
-        image_infos.append((image['alt'], image['src']))
-    return image_infos
+    # 画像のalt属性と画像URLの要素でタプルを作成してリスト入れ返します
+    return [(image['alt'], image['src']) for image in images]
 
 
 def download_image(image_alt, image_url, article_date, download_dir):
@@ -85,11 +82,11 @@ def main():
     メイン処理
     """
     # 記事一覧ページから各記事のURLを取得する
-    article_infos = get_article_urls(TOP_URL)
-    for article_date, article_url in article_infos:
+    article_info = get_article_info(TOP_URL)
+    for article_date, article_url in article_info:
         # 各記事から画像URLを取得する
-        image_infos = get_image_urls(article_url)
-        for image_alt, image_url in image_infos:
+        image_info = get_image_info(article_url)
+        for image_alt, image_url in image_info:
             # 画像URLから画像をダウンロードする
             download_image(image_alt, image_url, article_date, DOWNLOAD_DIR)
 

@@ -1,5 +1,6 @@
 """
-PyQ Cats からネコ画像をダウンロードするプログラム(関数化バージョン)
+PyQ Cats からネコ画像をダウンロードするプログラム(発展課題2の回答例)
+再帰処理を使ったバージョン
 """
 import os
 from time import sleep
@@ -42,14 +43,6 @@ def get_image_urls(url):
     soup = BeautifulSoup(r.content, 'html.parser')
     images = soup.find_all('img', class_='article-img')
     return [image['src'] for image in images]
-    # 上記のreturnで返しているコードはリスト内包表記と呼ばれる書き方です。
-    # 参考: https://docs.python.jp/3/tutorial/datastructures.html#list-comprehensions
-    # 以下のfor文を使ったコードと等価ですが、リスト内包表記で使う事で簡潔で読みやすく書く事が可能です。
-    #
-    # image_urls = []
-    # for image in images:
-    #     image_urls.append(image['src'])
-    # return image_urls
 
 
 def download_image(url, download_dir):
@@ -75,18 +68,34 @@ def download_image(url, download_dir):
         sleep(1)
 
 
-def main():
+def crawling_page(url):
     """
-    メイン処理
+    次のページがある場合は、次のページのダウンロード処理を行う
+
+    :param url: 記事一覧ページのURL
     """
     # 記事一覧ページから各記事のURLを取得する
-    article_urls = get_article_urls(TOP_URL)
+    article_urls = get_article_urls(url)
     for article_url in article_urls:
         # 各記事から画像URLを取得する
         image_urls = get_image_urls(article_url)
         for image_url in image_urls:
             # 画像URLから画像をダウンロードする
             download_image(image_url, DOWNLOAD_DIR)
+
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, 'html.parser')
+    next_page = soup.find('span', class_='page-next')
+    # 一覧ページに次のページのリンクがあった場合はこの関数の処理を繰り返します
+    if next_page:
+        crawling_page(next_page.a.attrs['href'])
+
+
+def main():
+    """
+    メイン処理
+    """
+    crawling_page(TOP_URL)
 
 
 if __name__ == "__main__":

@@ -138,7 +138,9 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
 
 特定のタグの要素を検索するには、 `find_all()` 関数を使用します。
 
-戻り値は、 `bs4.element.ResultSet` オブジェクトで、for 文でイテレート可能です。
+戻り値は `bs4.element.ResultSet` オブジェクトで、サンプルコードのようにfor 文と組み合わせることで、検索した結果を一件ずつ取得することができます
+
+* 参考: このオブジェクトはイテレータと呼ばれる、反復処理を行うためのオブジェクトです。イテレータについては `こちら <https://docs.python.jp/3/library/stdtypes.html#iterator-types>`_
 
 上記の例では `find_all()` 関数の第1引数のname引数に `a` タグを指定して要素を取得しています。
 
@@ -225,11 +227,6 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
   ::
 
      print(__import__('keyword').kwlist)
-
-.. note::
-
-   イテレートとは?:内部の各要素に順次アクセスするためのインターフェースを備えているオブジェクトです。
-   1部で学んだリストなどもイテレート可能なオブジェクトです。
 
 
 小休止
@@ -323,7 +320,7 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 
 - 本課題の回答コード例
    - `codes/3-2/download_pyq_cats_1.py <codes/3-2/download_pyq_cats_1.py>`_
-- 本課題の回答コード例(関数定義バージョン)
+- 本課題の回答コード例(関数化バージョン)
    - `codes/3-2/download_pyq_cats_2.py <codes/3-2/download_pyq_cats_2.py>`_
 - 発展課題1の回答コード例
    - `codes/3-2/download_pyq_cats_3.py <codes/3-2/download_pyq_cats_3.py>`_

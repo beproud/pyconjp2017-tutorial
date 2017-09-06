@@ -1,5 +1,6 @@
 """
-PyQ Cats からネコ画像をダウンロードするプログラム(発展課題2の回答)
+PyQ Cats からネコ画像をダウンロードするプログラム(発展課題2の回答例)
+`while` 構文を使ったバージョン
 """
 import os
 from time import sleep
@@ -41,10 +42,7 @@ def get_image_urls(url):
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     images = soup.find_all('img', class_='article-img')
-    urls = []
-    for image in images:
-        urls.append(image['src'])
-    return urls
+    return [image['src'] for image in images]
 
 
 def download_image(url, download_dir):
@@ -70,13 +68,14 @@ def download_image(url, download_dir):
         sleep(1)
 
 
-def crawling_page(url):
-    """次のページがある場合は、次のページのダウンロード処理を行う
+def get_images_from_aticles(url):
+    """
+    記事一覧ページから記事リンクを辿って猫画像をダウンロードする
 
-    :param url: 記事一覧のURL
+    :param url: 記事一覧ページのURL
     """
     # 記事一覧ページから各記事のURLを取得する
-    article_urls = get_article_urls(url)
+    article_urls = get_article_urls()
     for article_url in article_urls:
         # 各記事から画像URLを取得する
         image_urls = get_image_urls(article_url)
@@ -84,19 +83,34 @@ def crawling_page(url):
             # 画像URLから画像をダウンロードする
             download_image(image_url, DOWNLOAD_DIR)
 
+
+def get_next_page(url):
+    """
+    次のページが存在すればURLを返す
+
+    :param url: 記事一覧ページのURL
+    :return URL or None:
+       次のページのURLが存在すればURLを返す、存在しなければNoneを返す
+    """
     r = requests.get(url)
     soup = BeautifulSoup(r.content, 'html.parser')
     next_page = soup.find('span', class_='page-next')
-    # 一覧ページに次のページのリンクがあった場合はこの関数の処理を繰り返します
     if next_page:
-        crawling_page(next_page.a.attrs['href'])
+        return next_page.a.attrs['href']
 
 
 def main():
     """
     メイン処理
     """
-    crawling_page(TOP_URL)
+    articles_url = TOP_URL
+    # PyQ では以下の演習にてwhile構文を使った処理を学ぶ事ができます。
+    # https://pyq.jp/quests/yasashiipython_bot/try/
+    while True:
+        get_images_from_aticles(articles_url)
+        articles_url = get_next_page(articles_url)
+        if articles_url is None:
+            break
 
 
 if __name__ == "__main__":
