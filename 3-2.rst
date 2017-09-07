@@ -184,7 +184,7 @@ Requestsを使う事によってHTMLを取得できたので、今度はBeautifu
    for article in articles:
        title = article.text.strip()
        link = article.a.attrs.get('href').strip()
-       print('{}:{}'.format(title, link)
+       print('{}:{}'.format(title, link))
 
 
 今度は `h2` タグ とCSSのclass属性 `article-title` を指定してHTMLの記事の要素を取得する様に修正を行い、要素から記事のタイトル名とリンクのURLのみを出力するようにしてみました。
