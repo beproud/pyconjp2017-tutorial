@@ -37,8 +37,8 @@ for title in titles:
         file_path = os.path.join(DOWNLOAD_DIR, file_name)
 
         with open(file_path, 'wb') as f:
-            print('Downloading: {}'.format(parsed_url))
-            image_url_response = requests.get(parsed_url)
+            print('Downloading: {}'.format(image['src']))
+            image_url_response = requests.get(image['src'])
             f.write(image_url_response.content)
             # サーバーに負荷をかけないために1秒あける
             sleep(1)
