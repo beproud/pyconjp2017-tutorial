@@ -327,3 +327,13 @@ WEBサイトから画像をダウンロードするスクリプトの作成に�
 - 発展課題2の回答コード例
    - `codes/3-2/download_pyq_cats_4_1.py <codes/3-2/download_pyq_cats_4_1.py>`_
    - `codes/3-2/download_pyq_cats_4_2.py <codes/3-2/download_pyq_cats_4_2.py>`_
+
+リンク
+=============================
+
+* `第1部 <1.rst>`_
+* `第2部 <2.rst>`_
+* `PyQ <https://pyq.jp>`_
+* `PyQ docs <http://docs.pyq.jp/index.html>`_
+* `Requests <http://requests-docs-ja.readthedocs.io/en/latest/>`_
+* `BeautifulSoup <https://www.crummy.com/software/BeautifulSoup/bs4/doc/#>`_
