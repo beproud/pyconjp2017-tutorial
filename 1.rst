@@ -559,4 +559,5 @@ PyQの課題
 =============================
 * `第2部 <2.rst>`_
 * `第3部 <3.rst>`_
-* `pyq <https://pyq.jp>`_
+* `PyQ <https://pyq.jp>`_
+* `PyQ docs <http://docs.pyq.jp/index.html>`_
